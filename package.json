@@ -1,0 +1,32 @@
+{
+  "name": "validata",
+  "version": "1.0.0",
+  "description": "",
+ "main": "dist/index.js",
+   "types": "dist/index.d.ts",
+   "directories": {
+    "lib": "lib"
+  },
+   "scripts": {
+    "build": "tsc",
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abmercy035/validata.git"
+  },
+  "keywords": [
+    "validation",
+    "typescript",
+    "data-validation",
+    "form-validation",
+    "npm-package"
+  ],
+  "author": "Abraham abmercy035@gmail.com>",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/abmercy035/validata/issues"
+  },
+  "homepage": "https://github.com/abmercy035/validata#readme"
+}
