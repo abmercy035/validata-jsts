@@ -1,19 +1,20 @@
 {
-  "name": "validata",
+  "name": "validata-jsts",
   "version": "1.0.0",
-  "description": "",
+  "description": "Dynamic, rule-based validation for JS/TS objects with support for strings, numbers, dates, booleans, arrays, and custom conditions.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "build": "tsc",
-    "test": "vitest"
+    "build": "tsc", 
+     "dev": "tsc --watch",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abmercy035/validata.git"
+    "url": "git+https://github.com/abmercy035/validata-jsts.git"
   },
   "keywords": [
     "validation",
@@ -26,9 +27,9 @@
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/abmercy035/validata/issues"
+    "url": "https://github.com/abmercy035/validata-jsts/issues"
   },
-  "homepage": "https://github.com/abmercy035/validata#readme",
+  "homepage": "https://github.com/abmercy035/validata-jsts#readme",
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "jest": "^29.7.0"
