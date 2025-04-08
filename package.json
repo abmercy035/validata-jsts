@@ -2,12 +2,12 @@
   "name": "validata",
   "version": "1.0.0",
   "description": "",
- "main": "dist/index.js",
-   "types": "dist/index.d.ts",
-   "directories": {
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "directories": {
     "lib": "lib"
   },
-   "scripts": {
+  "scripts": {
     "build": "tsc",
     "test": "vitest"
   },
@@ -28,5 +28,12 @@
   "bugs": {
     "url": "https://github.com/abmercy035/validata/issues"
   },
-  "homepage": "https://github.com/abmercy035/validata#readme"
+  "homepage": "https://github.com/abmercy035/validata#readme",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "ts-jest": "^29.3.1"
+  }
 }
