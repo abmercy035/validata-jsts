@@ -1,9 +1,10 @@
-type DataType = 'string' | 'number' | 'boolean' | 'array' | 'email' | 'pwd' | 'date';
+import { DataType } from '../types/interface';
+import { conditionsCheck, getValueFromPath } from './../lib/index';
 
-export const ValiData = (rulesArray: string[], data: Record<string, any>): string | false => {
-	const getValueFromPath = (path: string, obj: any): any => {
-		return path.split('.').reduce((acc, key) => acc?.[key], obj);
-	};
+const Validata = (rulesArray: string[], data: Record<string, any>): string | false => {
+	// const getValueFromPath = (path: string, obj: any): any => {
+	// 	return path.split('.').reduce((acc, key) => acc?.[key], obj);
+	// };
 
 	for (const ruleString of rulesArray) {
 		const [rawField, ...ruleParts] = ruleString.split('-');
@@ -37,7 +38,7 @@ export const ValiData = (rulesArray: string[], data: Record<string, any>): strin
 			}
 		}
 
-		// Handle "optional" and "conditional" rules
+		// Handle "optional" rules
 		const optional = ruleParts.includes('optional');
 
 		// Skip validation if "optional" is true and the field is missing
@@ -45,38 +46,8 @@ export const ValiData = (rulesArray: string[], data: Record<string, any>): strin
 			continue;  // Skip validation for this field
 		}
 
-		// Check if the rule includes a conditional and extract it
-		let conditional: string | null | undefined = null;
 
-		const parseValue = (val: string): any => {
-			if (val === 'true') return true;
-			if (val === 'false') return false;
-			if (!isNaN(Number(val))) return Number(val);
-			return val;
-		};
-
-		if (ruleParts.some(part => part.startsWith('conditional:'))) {
-			const conditionalRule = ruleParts.find(part => part.startsWith('conditional:'));
-			conditional = conditionalRule?.split(':')[1]; // Extract the condition value
-		}
-
-		// If the field is conditional, check the condition before running the validation
-
-		// Conditional check (e.g., in a case where we want to ingnore validation for an, if isAdmin is true, skip validation)
-		if (conditional) {
-			const [conditionField, conditionValue] = conditional.split('=');
-			const conditionFieldValue = getValueFromPath(conditionField, data);
-			if (conditionFieldValue === undefined || conditionFieldValue == null) {
-				return `${conditionField} is ${conditionFieldValue} but is required to check the condition`;
-			}
-			const parsedConditionValue = parseValue(conditionValue);
-			// Convert both sides to string for comparison if needed
-			if (conditionFieldValue == parsedConditionValue) {
-				continue;  // Skip validation if condition is not met
-			}
-		}
-
-
+if (conditionsCheck(ruleParts, data, getValueFromPath))		continue
 		// Check if field is missing from the data (if it's in the rules)
 		if (value === undefined) {
 			return customErrorMessage || `${nestedPath} is required`;
@@ -141,3 +112,6 @@ export const ValiData = (rulesArray: string[], data: Record<string, any>): strin
 
 	return false;
 };
+
+export const isInValiData = Validata
+export const isValiData = Validata 
