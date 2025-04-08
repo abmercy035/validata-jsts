@@ -49,11 +49,7 @@ const data = {
 		email: "abraham@example.com",
 		age: 22,
 		birthdate: "2002-04-07",
-		password: "StrongPass123!",
-		media: {
-			mimetype: "image/jpeg",
-			size: 1800000
-		}
+		password: "StrongPass123!"
 	}
 };
 
