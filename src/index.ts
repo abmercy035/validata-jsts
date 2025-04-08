@@ -1,5 +1,5 @@
-import { DataType } from '../types/interface';
-import { conditionsCheck, getValueFromPath } from './../lib/index';
+import { DataType } from './types/interface';
+import { conditionsCheck, getValueFromPath } from './utils/index';
 
 const Validata = (rulesArray: string[], data: Record<string, any>): string | false => {
 	// const getValueFromPath = (path: string, obj: any): any => {
@@ -47,7 +47,7 @@ const Validata = (rulesArray: string[], data: Record<string, any>): string | fal
 		}
 
 
-if (conditionsCheck(ruleParts, data, getValueFromPath))		continue
+		if (conditionsCheck(ruleParts, data, getValueFromPath)) continue
 		// Check if field is missing from the data (if it's in the rules)
 		if (value === undefined) {
 			return customErrorMessage || `${nestedPath} is required`;

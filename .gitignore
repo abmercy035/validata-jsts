@@ -1,2 +1,8 @@
 node_modules
-dist
+src
+tests
+*.ts
+*.tsx
+tsconfig.json
+.gitignore
+.git

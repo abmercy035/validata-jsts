@@ -4,9 +4,12 @@
   "description": "Dynamic, rule-based validation for JS/TS objects with support for strings, numbers, dates, booleans, arrays, and custom conditions.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "directories": {
-    "lib": "lib"
-  },
+ "files": [
+  "dist",
+  "index.js",
+  "package.json",
+  "README.md"
+],
   "scripts": {
     "build": "tsc", 
      "dev": "tsc --watch",
