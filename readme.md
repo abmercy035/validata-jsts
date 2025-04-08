@@ -31,7 +31,7 @@ npm install validata-jsts
 ## 🔧 Usage
 
 ```javascript
-import { checkData } from 'validata-jsts';
+import { isInValiData } from 'validata-jsts';
 
 const rules = [
 	"user.name-string-min3-max20",
@@ -53,7 +53,7 @@ const data = {
 	}
 };
 
-const result = checkData(rules, data);
+const result = isInValiData(rules, data);
 
 if (result) {
 	console.error("Validation failed:", result);
