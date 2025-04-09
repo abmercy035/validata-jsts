@@ -86,7 +86,7 @@ fieldName-type-rules
 ### Optional and Conditional Rules
 
 - `optional`: Skip validation if the field is missing.
-- `conditional:field=value`: Only validate if the condition is met.
+- `cond:field=value`: Only validate if the condition is met.
 
 ### Custom Error Messages
 
