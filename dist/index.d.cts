@@ -1,4 +1,5 @@
-declare const isInValiData: (rulesArray: string[], data: Record<string, any>) => string | false;
-declare const isValiData: (rulesArray: string[], data: Record<string, any>) => string | false;
+declare const Validata: (rulesArray: string[], data: Record<string, any>) => string | false;
 
-export { isInValiData, isValiData };
+declare const isInValiData: (rulesArray: string[], data: Record<string, any>) => string | false;
+
+export { Validata as default, isInValiData };

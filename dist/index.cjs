@@ -20,8 +20,8 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
-  isInValiData: () => isInValiData,
-  isValiData: () => isValiData
+  default: () => index_default,
+  isInValiData: () => isInValiData
 });
 module.exports = __toCommonJS(index_exports);
 
@@ -139,9 +139,8 @@ var engine_default = Validata;
 
 // src/index.ts
 var isInValiData = engine_default;
-var isValiData = engine_default;
+var index_default = engine_default;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  isInValiData,
-  isValiData
+  isInValiData
 });

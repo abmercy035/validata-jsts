@@ -112,8 +112,8 @@ var engine_default = Validata;
 
 // src/index.ts
 var isInValiData = engine_default;
-var isValiData = engine_default;
+var index_default = engine_default;
 export {
-  isInValiData,
-  isValiData
+  index_default as default,
+  isInValiData
 };

@@ -32,6 +32,15 @@ npm install validata-jsts
 
 ```javascript
 import { isInValiData } from 'validata-jsts';
+```javascript
+```javascript
+// Importing the library
+import Validata from 'validata-jsts'; // Main exported function
+
+// Alternatively, you can use the named export
+import { isInValiData } from 'validata-jsts'; // Checks if data is invalid and returns false
+```
+```
 
 const rules = [
 	"user.name-string-min3-max20",
