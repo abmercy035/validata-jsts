@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "target": "ES2020",
+    "strict": true,
+    "noImplicitAny": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true,
-        "allowImportingTsExtensions": true,
-        "declaration": true,
-        "emitDeclarationOnly": true,
-    "outDir": "dist",
-    "strict": true
+    "strictNullChecks": true,
+    "target": "ES2022", 
+ "moduleResolution": "Node10",  // Change from 'nodenext' or 'node16'
+    "module": "CommonJS",   
+    "declaration": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "outDir": "dist"
   },
   "include": ["src"],
-    "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules"]
 }
