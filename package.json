@@ -1,6 +1,6 @@
 {
   "name": "validata-jsts",
-  "version": "1.0.17",
+  "version": "1.1.0",
   "description": "Dynamic, rule-based validation for JS/TS objects with support for strings, numbers, dates, booleans, arrays, and custom conditions.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

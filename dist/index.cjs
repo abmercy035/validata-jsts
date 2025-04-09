@@ -45,7 +45,7 @@ var conditionsCheck = (ruleParts, data, getValueFromPath2) => {
       return `${conditionField} is ${conditionFieldValue} but is required to check the condition`;
     }
     const parsedConditionValue = parseValue(conditionValue);
-    if (conditionFieldValue == parsedConditionValue) {
+    if (conditionFieldValue != parsedConditionValue) {
       return true;
     }
   }
@@ -91,6 +91,7 @@ var Validata = (rulesArray, data) => {
     if (value === void 0) {
       return customErrorMessage || `${nestedPath} is required`;
     }
+    if (type === "string" && value.trim() === "") return `${nestedPath} must be a non-empty string`;
     if (type === "string" && typeof value !== "string") return `${nestedPath} must be a string`;
     if (type === "number" && typeof value !== "number") return `${nestedPath} must be a number`;
     if (type === "boolean" && typeof value !== "boolean") return `${nestedPath} must be a boolean`;
