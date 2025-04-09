@@ -64,7 +64,7 @@ var Validata = (rulesArray, data) => {
     if (value === void 0) {
       return customErrorMessage || `${nestedPath} is required`;
     }
-    if (type === "string" && value.trim() === "") return `${nestedPath} must be a non-empty string`;
+    if (type === "string" && typeof value === "string" && value.trim() === "") return `${nestedPath} must be a non-empty string`;
     if (type === "string" && typeof value !== "string") return `${nestedPath} must be a string`;
     if (type === "number" && typeof value !== "number") return `${nestedPath} must be a number`;
     if (type === "boolean" && typeof value !== "boolean") return `${nestedPath} must be a boolean`;
@@ -112,8 +112,8 @@ var engine_default = Validata;
 
 // src/index.ts
 var isInValiData = engine_default;
-var index_default = engine_default;
+var ValiData = engine_default;
 export {
-  index_default as default,
+  ValiData,
   isInValiData
 };

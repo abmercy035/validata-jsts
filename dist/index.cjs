@@ -20,7 +20,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
-  default: () => index_default,
+  ValiData: () => ValiData,
   isInValiData: () => isInValiData
 });
 module.exports = __toCommonJS(index_exports);
@@ -91,7 +91,7 @@ var Validata = (rulesArray, data) => {
     if (value === void 0) {
       return customErrorMessage || `${nestedPath} is required`;
     }
-    if (type === "string" && value.trim() === "") return `${nestedPath} must be a non-empty string`;
+    if (type === "string" && typeof value === "string" && value.trim() === "") return `${nestedPath} must be a non-empty string`;
     if (type === "string" && typeof value !== "string") return `${nestedPath} must be a string`;
     if (type === "number" && typeof value !== "number") return `${nestedPath} must be a number`;
     if (type === "boolean" && typeof value !== "boolean") return `${nestedPath} must be a boolean`;
@@ -139,8 +139,9 @@ var engine_default = Validata;
 
 // src/index.ts
 var isInValiData = engine_default;
-var index_default = engine_default;
+var ValiData = engine_default;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  ValiData,
   isInValiData
 });
