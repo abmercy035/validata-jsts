@@ -1,3 +1,6 @@
+// src/engine/index.ts
+import mongoose from "mongoose";
+
 // src/utils/index.ts
 var conditionsCheck = (ruleParts, data, getValueFromPath2) => {
   let condition = null;
@@ -46,7 +49,7 @@ var Validata = (rulesArray, data) => {
     let exact;
     let isAnyPwd = ruleParts.includes("any");
     for (const part of ruleParts) {
-      if (["string", "number", "boolean", "array", "email", "pwd", "date"].includes(part)) {
+      if (["string", "number", "boolean", "array", "email", "pwd", "date", "objectid"].includes(part)) {
         type = part;
       } else if (part.startsWith("min")) {
         min = parseInt(part.replace("min", ""), 10);
@@ -89,6 +92,11 @@ var Validata = (rulesArray, data) => {
         return `${nestedPath} must be before ${max.toString().replace(/_/g, "-")}`;
       if (exact && new Date(dateValue).toISOString().split("T")[0] !== exact.toString().replace(/_/g, "-")) {
         return `${nestedPath} must be exactly ${exact.toString().replace(/_/g, "-")}`;
+      }
+    }
+    if (type === "objectid") {
+      if (!mongoose.Types.ObjectId.isValid(value)) {
+        return `${nestedPath} must be a valid MongoDB ObjectId`;
       }
     }
     if (type === "pwd" && typeof value === "string") {

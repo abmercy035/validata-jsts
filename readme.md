@@ -85,7 +85,7 @@ fieldName-type-rules
 - `email`
 - `pwd` (password)
 - `date`
-- `object` (for media)
+- `objectid` (for mongodb id)
 
 ### Optional and Conditional Rules
 

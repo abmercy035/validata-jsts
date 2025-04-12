@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/index.ts
@@ -24,6 +34,9 @@ __export(index_exports, {
   isInValiData: () => isInValiData
 });
 module.exports = __toCommonJS(index_exports);
+
+// src/engine/index.ts
+var import_mongoose = __toESM(require("mongoose"), 1);
 
 // src/utils/index.ts
 var conditionsCheck = (ruleParts, data, getValueFromPath2) => {
@@ -73,7 +86,7 @@ var Validata = (rulesArray, data) => {
     let exact;
     let isAnyPwd = ruleParts.includes("any");
     for (const part of ruleParts) {
-      if (["string", "number", "boolean", "array", "email", "pwd", "date"].includes(part)) {
+      if (["string", "number", "boolean", "array", "email", "pwd", "date", "objectid"].includes(part)) {
         type = part;
       } else if (part.startsWith("min")) {
         min = parseInt(part.replace("min", ""), 10);
@@ -116,6 +129,11 @@ var Validata = (rulesArray, data) => {
         return `${nestedPath} must be before ${max.toString().replace(/_/g, "-")}`;
       if (exact && new Date(dateValue).toISOString().split("T")[0] !== exact.toString().replace(/_/g, "-")) {
         return `${nestedPath} must be exactly ${exact.toString().replace(/_/g, "-")}`;
+      }
+    }
+    if (type === "objectid") {
+      if (!import_mongoose.default.Types.ObjectId.isValid(value)) {
+        return `${nestedPath} must be a valid MongoDB ObjectId`;
       }
     }
     if (type === "pwd" && typeof value === "string") {
