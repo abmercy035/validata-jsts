@@ -17,7 +17,7 @@
 - ✅ Custom error messages per rule
 - ✅ Optional fields
 - ✅ Nested field support (dot notation)
-- ✅ Extendable with custom rules via `extendRule`
+- ✅ Extendable with custom rules via `extend`
 
 ---
 
@@ -42,8 +42,23 @@ const rules = [
   "bio-string-optional"
 ];
 
+const data = {
+  name: "Abraham",
+  email: "abraham@example.com",
+  age: 25,
+  password: "StrongPass123!"
+};
+
+const result = isInValiData(rules, data);
+
+if (result) {
+  console.log("❌ Validation errors:", result);
+} else {
+  console.log("✅ Passed validation");
+}
 ```
-### 📌 Alternate Use Case Example: Signup Form
+
+#### 📌 Alternate Use Case Example: Signup Form
 
 ```ts
 const rule = {
@@ -120,14 +135,16 @@ Use `err:` or `valerr:` to specify your own messages:
 
 ```ts
 import { validateWithSchema } from "validata-jsts";
+import { Schema, validateWithSchema } from "validata-jsts";
 
-const schema = {
-  name: "string-min3-max30",
-  email: "email",
-  age: "number-min18",
-  password: "pwd-min8",
-  bio: "string-optional"
-};
+const schema = new Schema({
+  name: { type: "string", min: 3, max: 30 },
+  email: { type: "email" },
+  age: { type: "number", min: 18 },
+  password: { type: "pwd", min: 8 },
+  bio: { type: "string"}
+});
+
 
 const data = {
   name: "John",
@@ -137,6 +154,10 @@ const data = {
 };
 
 const result = validateWithSchema(schema, data);
+console.log(result)
+
+//Output
+false
 ```
 
 ---
@@ -173,12 +194,12 @@ const rules = extractRulesFromSchema(schema);
 
 ---
 
-## 🔧 Custom Rules with `extendRule`
+## 🔧 Custom Rules with `extend`
 
 ```ts
-import { extendRule, isInValiData } from "validata-jsts";
+import { extend, isInValiData } from "validata-jsts";
 
-extendRule("startsWith", (value, expected) => {
+extend("startsWith", (value, expected) => {
   if (typeof value !== "string") return "Must be a string";
   if (!value.startsWith(expected)) return `Must start with ${expected}`;
   return null;
@@ -193,7 +214,7 @@ const result = isInValiData(rules, data);
 ### Real Example: Nigerian Phone Number
 
 ```ts
-extendRule("naPhone", (value) => {
+extend("naPhone", (value) => {
   if (!/^(\+234|0)[789][01]\d{8}$/.test(value)) {
     return "Invalid Nigerian phone number";
   }
@@ -203,18 +224,65 @@ extendRule("naPhone", (value) => {
 const rules = ["phone-naPhone-err:Provide a valid Nigerian number"];
 ```
 
+```ts
+// type can be imported  : ValidatorFn incase
+
+import { extend, ValidatorFn } from "validata-jsts";
+
+// default config from user
+const minLengthCheck: ValidatorFn = (value, _, config = { min: 5 }) => {
+  if (value.length < config.min) {
+    return `{Value} is less than the minimum length of ${config.min}`;
+  }
+  return null;
+};
+
+extend("equal", (value, cond, config) => minLengthCheck(value, cond, { min: 10 }));
+
+const rules = ["phone-equal"];
+const value ={ idNumber :"abmercy"};
+const result = isInValidata(rules, value)
+console.log(result);
+ // Output: "phone: value is less than the minimum length of 5
+```
 ---
 
+
+---
+You can go as far as attaching your equating value to the name and then extract it...
+from the  condition props
+
+```ts
+// if its a number and your fucntion name length equal is of length 4 your substring value will be 4
+const condValue =  Number.parseInt(conditions[0].substring(4)) // if condition is one or you map it
+```
+
+```ts
+// then you can validata your value against the condition,  you should have your extend function like this 
+const minLengthCheck: ValidatorFn = (value, conditions, config = { min: 5 }) =>{
+  // your validation here logic here
+}
+```
+Then pass it into your rule and we will take care of that 🌝
+```ts
+const rule = ["name-equalAbraham"]
+// we will take it from there.
+```
+---
+
+---
 ## 🧪 Type Rules Overview
 
 ### `string`
 ```ts
 "name-string-min3-max50"
+"key-string-16" //must be exactly 8 character long 
 ```
 
 ### `number`
 ```ts
 "age-number-min18-max60"
+"packs-number-8" //must be exactly equal to 8 
 ```
 
 ### `boolean`
@@ -290,8 +358,9 @@ const result = isInValiData(rule, input);
 ```ts
 const rule = [
 	"name-string-min3-max30",
- "email-email","password-pwd-min8",
-	"confirmPassword-string-equal:Password123!",
+ "email-email",
+ "password-pwd-max18",
+	"confirmPassword-pwd-max18",
 	"acceptTerms-boolean"
 		];
 
@@ -327,5 +396,4 @@ This project is licensed under the [MIT License](LICENSE)
 Coming soon: conditional rules, nested object arrays, and media validation support.
 
 ---
-
-Let me know if you'd like this in `README.md` format or published to your repo directly.
+.

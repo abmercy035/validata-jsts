@@ -6,3 +6,5 @@ tests
 tsconfig.json
 .gitignore
 .git
+package-test
+dist

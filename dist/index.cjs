@@ -264,8 +264,6 @@ function executeRule(field, type, conditions, value, config) {
       return errors.length > 0 ? errors.join(", ") : false;
     }
   }
-  console.log(type);
-  console.log(type.startsWith("array<"));
   if (type.startsWith("array<") && Array.isArray(value)) {
     const isValid = checkSingleType(value, type);
     if (!isValid) {
@@ -460,7 +458,6 @@ function buildRuleFromPath(field, path) {
   if (typeof path.options?.max === "number") {
     conditions.push(`max${path.options.max}`);
   }
-  console.log(path.instance);
   if (path.instance === "String") {
     const minLen = extractValue(path.options?.minlength);
     const maxLen = extractValue(path.options?.maxlength);
@@ -470,15 +467,15 @@ function buildRuleFromPath(field, path) {
     const reqMsg = extractMessage(path.options?.required);
     if (minLen != null) {
       const msg = minMsg || `${field} must be more than ${minLen} characters`;
-      conditions.push(`${field}-min${minLen}-valerr:${msg}`);
+      conditions.push(`min${minLen}-valerr:${msg}`);
     }
     if (maxLen != null) {
       const msg = maxMsg || `${field} cannot be more than ${maxLen} characters`;
-      conditions.push(`${field}-max${maxLen}-valerr:${msg}`);
+      conditions.push(`max${maxLen}-valerr:${msg}`);
     }
     if (isReq) {
       const msg = reqMsg || `${field} is required`;
-      conditions.push(`${field}-req-valerr:${msg}`);
+      conditions.push(`valerr:${msg}`);
     }
   }
   const enumVals = path.enumValues ?? path.options?.enum;

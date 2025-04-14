@@ -3,6 +3,18 @@ import { Schema } from 'mongoose';
 /**
  * Validator function type
  */
+/**
+ * A function type that validates a given value based on specified conditions and configuration.
+ *
+ * @typeParam value - The value to be validated. Can be of any type.
+ * @typeParam conditions - An optional array of strings representing the conditions or rules
+ *                         that the value must satisfy.
+ * @typeParam config - An optional object containing additional configuration or parameters
+ *                     for the validation logic.
+ *
+ * @returns A string indicating the validation error message if the validation fails,
+ *          or `false` if the validation passes successfully.
+ */
 type ValidatorFn = (value: any, conditions?: string[], config?: Record<string, any>) => string | false;
 /**
  * Validation result
@@ -20,10 +32,53 @@ type ValidationResult = string | false;
 declare function Validata(inputRules: Record<string, string[]> | string[], data: Record<string, any>, config?: Record<string, any>): ValidationResult;
 
 /**
- * Extends the validator with a custom rule or type
+ * Extends the custom validators by adding a new validator function.
+ * If a validator with the same name already exists, it will be overridden,
+ * and a warning will be logged to the console.
  *
- * @param name - Name of the custom rule or type
- * @param fn - Validator function that returns false if valid or an error message if invalid
+ * @param name - The name of the custom validator to add or override.
+ * @param fn - The validator function to associate with the given name.
+ *             The function should follow the `ValidatorFn` type signature.
+ *
+ * ValidatorFn:
+ * A function that validates a value based on optional conditions and configuration.
+ *
+ * @example
+ * // Define a custom validator function
+ * const isEven: ValidatorFn = (value, conditions, config) => {
+ *   if (typeof value !== 'number') {
+ *     return 'Value must be a number';
+ *   }
+ *   if (value % 2 !== 0) {
+ *     return 'Value is not even';
+ *   }
+ *   return false; // Validation passed
+ * };
+ *
+ * // Extend the custom validators with the new function
+ * extend('isEven', isEven);
+ *
+ * @example
+ * // Using the custom validator with conditions and config
+ * const maxLengthValidator: ValidatorFn = (value, conditions, config={maxLength : 5}) => {
+ *   const maxLength = config?.maxLength || 10; // Default max length is 10
+ *   if (typeof value !== 'string') {
+ *     return 'Value must be a string';
+ *   }
+ *   if (value.length > maxLength) {
+ *     return `Value exceeds maximum length of ${maxLength}`;
+ *   }
+ *   return false; // Validation passed
+ * };
+ *
+ * extend('maxLength', maxLengthValidator);
+ *
+ * // Example usage
+ const rules = ["idNumber-maxLengthValidator-err:Value exceeds maximum length of 5"];
+
+ * const value ={ idNumber :"123456"}; // Example value to validate
+ * const result = isInValidata(rules, value)
+ * console.log(result); // Output: "idNumber: Value exceeds maximum length of 5"
  */
 declare function extend(name: string, fn: ValidatorFn): void;
 
