@@ -1,42 +1,3 @@
-```ts
-const schemaRule = {
-  name: "string-min3-max30",
-  email: "email",
-  age: "number-min18",
-  password: "pwd-min8",
-  bio: "string-optional"
-};
-```
-
-### 📌 Alternate Use Case Example: Signup Form
-
-```ts
-const schemaRule = [
-	"name-string-min3-max30",
- "email-email",
-	"age-number-min18",
-	"password-pwd-min8",
-	"bio-string-optional"
-		];
-```
-
-**should not** have any `!` (negation) or invalid field definitions unless explicitly used in advanced rule strings — and even then, not in `validateWithSchema()` unless that's how the user wrote it.
-
-And the `mongoose.Schema` example I gave earlier in the `extractRulesFromSchema()` section should reflect a real valid Mongoose schema object.
-
-Let me correct the README with a clean, correct version that respects:
-
-- proper schema definitions
-- no unnecessary `!`
-- proper Mongoose example
-- and a properly documented usage of your API
-
----
-
-Here's the **updated and clean** README:
-
----
-
 # Validata-JSTS
 
 [![npm version](https://img.shields.io/npm/v/validata-jsts.svg)](https://www.npmjs.com/package/validata-jsts)  
@@ -80,6 +41,18 @@ const rules = [
   "password-pwd-min8",
   "bio-string-optional"
 ];
+
+```
+### 📌 Alternate Use Case Example: Signup Form
+
+```ts
+const rule = {
+  name: "string-min3-max30",
+  email: "email",
+  age: "number-min18",
+  password: "pwd-min8",
+  bio: "string-optional"
+};
 
 const data = {
   name: "Abraham",
