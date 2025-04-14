@@ -1,5 +1,3 @@
-You're absolutely right — thanks for catching that. A schema like this:
-
 ```ts
 const schemaRule = {
   name: "string-min3-max30",
